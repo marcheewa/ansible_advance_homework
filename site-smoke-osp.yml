@@ -9,6 +9,14 @@
     tags:
       - osp.smoke
   - name: Curl website
+    uri:
+     url: "http://{{item.accessIPv4}}"
+     return_content: yes
+    with_items:
+      - "{{ openstack_servers}}"
+    register: webpage  
+    tags:
+      - smokeTest
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
